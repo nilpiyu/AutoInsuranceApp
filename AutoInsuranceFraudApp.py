@@ -44,10 +44,10 @@ def user_input_features():
     incident_city = st.sidebar.selectbox('Incident City:',('Arlignton','Columbus','Hillsdale', 'Northbrook','Springfield', 'Arlington'))
     incident_location = st.sidebar.text_input('Incident Location: ')
     number_of_vehicles_involved = st.sidebar.number_input('Number of Vehicles Involved: ')
-    property_damage =
+    property_damage = st.sidebar.selectbox('Property Damage:',('YES','NO'))
     bodily_injuries = st.sidebar.number_input('Bidily Injuries')
     witnesses = st.sidebar.number_input('Witness')
-    police_report_available =
+    police_report_available = st.sidebar.selectbox('Police Report Available:',('YES','NO'))
     total_claim_amount = st.sidebar.number_input('Total Claim Amount')
     injury_claim = st.sidebar.number_input('Injury Claim')
     property_claim = st.sidebar.number_input('Property Claim')
