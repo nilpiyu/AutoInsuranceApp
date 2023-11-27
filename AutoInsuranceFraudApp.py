@@ -20,7 +20,7 @@ def user_input_features():
     policy_number = st.sidebar.number_input('Policy Number: ')
     age = st.sidebar.number_input('Age of persons: ')    
     months_as_customer = st.sidebar.number_input('Month as customer')
-    policy_bind_date = st.input('Policy Bind Date', value="today", min_value=None, max_value=None, key=None, help=None, on_change=None, args=None, kwargs=None, *, format="YYYY/MM/DD", disabled=False, label_visibility="visible")
+    policy_bind_date = st.date_input('Policy Bind Date', value="today", min_value=None, max_value=None, key=None, help=None, on_change=None, args=None, kwargs=None, *, format="YYYY/MM/DD", disabled=False, label_visibility="visible")
     policy_state =st.sidebar.selectbox('Policy State: ', ( 'OH','IN','IL'))
     policy_csl =st.sidebar.selectbox('Policy CSL: ', ( '100/300','250/500','500/1000'))
     policy_deductable = st.sidebar.selectbox('Policy Deductable: ', ( '500','1000','2000'))
@@ -104,3 +104,18 @@ def user_input_features():
 input_df = user_input_features()
 
 st.write(input_df)
+
+def predict(data):
+    clf = joblib.load("model_RFC.sav")
+    return clf.predict(data)
+
+
+# Apply model to make predictions
+
+if st.button("Click here to Predict Fraud in Claim Submission"):
+    result = predict(input_df)
+
+    if (result[0]== 0):
+        st.subheader('The Claim :green[Fraud Not Detected] :sunglasses: 	:sparkling_heart:')
+    else:
+        st.subheader('The Claim :red[Fraud Detected] :worried:')
