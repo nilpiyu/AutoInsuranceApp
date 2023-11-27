@@ -72,7 +72,7 @@ def user_input_features():
 'insured_occupation' :insured_occupation,
 'insured_hobbies' :insured_hobbies,
 'insured_relationship' :insured_relationship,
-'capital-gains' :capital-gains,
+'capital-gains' :capital-gain,
 'capital-loss' :capital-loss,
 'incident_date' :incident_date,
 'incident_type' :incident_type,
