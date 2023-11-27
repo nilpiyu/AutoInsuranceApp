@@ -32,7 +32,7 @@ def user_input_features():
     insured_occupation = st.sidebar.selectbox('Insured OccupationL: ', ('transport-moving', 'armed-forces','craft-repair','arm-celerical','sales', 'tech-support', 'exec-managerial', 'prof-speciality','other services'))
     insured_hobbies = st.sidebar.selectbox('Insured Hobbies: ', ('basketball', 'board-games','base-jumping','bungie-jumping','camping', 'chess', 'dance', 'golf','hiking','video-games','reading','sleeping','other'))
     insured_relationship = st.sidebar.selectbox('Insured Relationship:', ( 'husband','unmarried','wife','own-child','other-relative','not-in-family'))
-    capital_gain = st.sidebar.number_input('Capital Gain: ')
+    capital_gains = st.sidebar.number_input('Capital Gain: ')
     capital_loss = st.sidebar.number_input('Capital Loss: ')
     incident_type = st.sidebar.selectbox('Incident Type: ',( 'Multi-vehicle Collision','Single Vehicle Collision','Parked Car', 'Vehicle Theft'))
     collision_type =  st.sidebar.selectbox('Collision  Type:', ( 'Rear Collision','Front Collision','Side Collision'))
@@ -72,7 +72,7 @@ def user_input_features():
 'insured_occupation' :insured_occupation,
 'insured_hobbies' :insured_hobbies,
 'insured_relationship' :insured_relationship,
-'capital-gains' :capital-gain,
+'capital-gains' :capital-gains,
 'capital-loss' :capital-loss,
 'incident_date' :incident_date,
 'incident_type' :incident_type,
