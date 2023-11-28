@@ -1,4 +1,4 @@
-import streamlit as st
+6import streamlit as st
 import numpy as np # linear algebra
 import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
 import pickle
@@ -107,7 +107,7 @@ def predict(data):
     return clf.predict(data)
 
 # df_new_data =pd.read_csv('Automobile_insurance_fraud_v1.csv')
-df_new_data = input_df
+df_new_data = data
 # Apply model to make predictions
 st.write(df_new_data)
 # preprocessing steps
