@@ -106,7 +106,8 @@ def predict(data):
     clf = joblib.load("model_RFC.sav")
     return clf.predict(data)
 
-df_new_data =pd.read_csv('Automobile_insurance_fraud_v1.csv')
+# df_new_data =pd.read_csv('Automobile_insurance_fraud_v1.csv')
+df_new_data = input_df
 # Apply model to make predictions
 st.write(df_new_data)
 # preprocessing steps
