@@ -106,13 +106,133 @@ def predict(data):
     clf = joblib.load("model_RFC.sav")
     return clf.predict(data)
 
-df =pd.read_csv('Automobile_insurance_fraud_v1.csv')
+df_new_data =pd.read_csv('Automobile_insurance_fraud_v1.csv')
 # Apply model to make predictions
-st.write(df)
+st.write(df_new_data)
+# preprocessing steps
+import pandas as pd
+# For handling date variables
+from datetime import date
+# For plotting graphs
+from matplotlib import pyplot as plt
+# For plotting graphs
+import seaborn as sns
+# For splitting dataset 
+from sklearn.model_selection import train_test_split
+# Random Forest Classification
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import KFold,cross_val_score 
+from sklearn.metrics import accuracy_score, recall_score, classification_report, cohen_kappa_score,confusion_matrix,precision_score,f1_score
+from xgboost import XGBClassifier
+from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import OneHotEncoder # Use this instead of pd.getDummies
+import pickle
+import os
+
+
+    ohe_2 =  joblib.load("Pickle_OHE_Model.sav")
+
+## convert Date fields 
+df_new_data['policy_bind_date'] = pd.to_datetime(df_new_data['policy_bind_date'],dayfirst=True)
+df_new_data['incident_date'] = pd.to_datetime(df_new_data['incident_date'],dayfirst=True)
+
+## Create new columns
+df_new_data['Policy_Tenure_Days'] = df_new_data['policy_bind_date'].rsub(pd.Timestamp('now').floor('d')).dt.days
+df_new_data['vehicle_age']=int(date.today().strftime('%Y'))-df_new_data['auto_year']
+df_new_data['csl_per_person'] = df_new_data.policy_csl.str.split('/', expand=True)[0]
+df_new_data['csl_per_accident'] = df_new_data.policy_csl.str.split('/', expand=True)[1]
+df_new_data['csl_per_person']  = df_new_data['csl_per_person'].astype('int32')
+df_new_data['csl_per_accident']  = df_new_data['csl_per_accident'].astype('int32')
+
+
+df_new_data['authorities_contacted'].fillna('Not_Contacted', inplace = True)
+
+## Set Categorical fields
+df_new_data['policy_number'] = df_new_data['policy_number'].astype('category')
+df_new_data['policy_state'] = df_new_data['policy_state'].astype('category')
+df_new_data['policy_csl'] = df_new_data['policy_csl'].astype('category')
+df_new_data['insured_zip'] = df_new_data['insured_zip'].astype('category')
+df_new_data['police_report_available'] = df_new_data['police_report_available'].astype('category')
+df_new_data['auto_make'] = df_new_data['auto_make'].astype('category')
+df_new_data['auto_model'] = df_new_data['auto_model'].astype('category')
+df_new_data['insured_sex'] = df_new_data['insured_sex'].astype('category')
+df_new_data['insured_education_level'] = df_new_data['insured_education_level'].astype('category')
+df_new_data['insured_occupation'] = df_new_data['insured_occupation'].astype('category')
+df_new_data['insured_hobbies'] = df_new_data['insured_hobbies'].astype('category')
+df_new_data['insured_relationship'] = df_new_data['insured_relationship'].astype('category')
+df_new_data['incident_type'] = df_new_data['incident_type'].astype('category')
+df_new_data['collision_type'] = df_new_data['collision_type'].astype('category')
+df_new_data['incident_severity'] = df_new_data['incident_severity'].astype('category')
+df_new_data['authorities_contacted'] = df_new_data['authorities_contacted'].astype('category')
+df_new_data['incident_state'] = df_new_data['incident_state'].astype('category')
+df_new_data['incident_city'] = df_new_data['incident_city'].astype('category')
+df_new_data['incident_location'] = df_new_data['incident_location'].astype('category')
+df_new_data['property_damage'] = df_new_data['property_damage'].astype('category')
+
+## Remove Columns that are not significant for fraud detection
+
+### Policy Number ---- Only potential information we can get is how old is the policy, we already have months_as_customer.
+## Hence it's redundant. ---> DROPPING
+df_new_data=df_new_data.drop(['policy_number'], axis=1)
+df_new_data=df_new_data.drop(['policy_bind_date'], axis=1)
+df_new_data=df_new_data.drop(['auto_year'],axis=1)
+df_new_data=df_new_data.drop(['policy_csl'], axis=1)
+df_new_data=df_new_data.drop(['insured_zip'], axis=1)
+df_new_data=df_new_data.drop(['incident_date'], axis=1)
+df_new_data=df_new_data.drop(['incident_location'], axis=1)
+df_new_data=df_new_data.drop(['auto_make'], axis=1)
+df_new_data=df_new_data.drop(['auto_model'], axis=1)
+
+
+## Applying one-hot encoding to convert all categorical variables except out target variables
+dummies = ohe_2.transform(df_new_data[[
+'policy_state',
+'insured_sex',
+'insured_education_level',
+'insured_occupation',
+'insured_hobbies',
+'insured_relationship',
+'incident_type',
+'collision_type',
+'incident_severity',
+'authorities_contacted',
+'incident_state',
+'incident_city',
+'property_damage',
+'police_report_available']])
+
+dummies=pd.DataFrame(dummies.toarray(), columns = ohe_2.get_feature_names_out())
+
+## Prepare final Data Set for buliding model
+df_new_data_X1 = df_new_data[['months_as_customer',
+'age',
+'policy_deductable',
+'policy_annual_premium',
+'umbrella_limit',
+'capital-gains',
+'capital-loss',
+'incident_hour_of_the_day',
+'number_of_vehicles_involved',
+'bodily_injuries',
+'witnesses',
+'total_claim_amount',
+'injury_claim',
+'property_claim',
+'vehicle_claim',
+'vehicle_age',
+'Policy_Tenure_Days',
+'csl_per_person',
+'csl_per_accident']]
+
+df_new_data_X1 = df_new_data_X1.join(dummies)
+
+scaler = StandardScaler(with_mean=False)
+df_new_data_X1_scaled = scaler.fit_transform(df_new_data_X1)
+
 
 if st.button("Click here to Predict Fraud in Claim Submission"):
    # result = predict(input_df)
-    result = predict(df)
+    result = predict(df_new_data_X1_scaled)
     if (result[0]== 0):
         st.subheader('The Claim :green[Fraud Not Detected] :sunglasses: 	:sparkling_heart:')
     else:
