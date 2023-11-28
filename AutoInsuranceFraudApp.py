@@ -56,9 +56,7 @@ auto_year = st.sidebar.text_input('Auto year', value="2000")
 auto_make = st.sidebar.text_input('Auto Make')
 auto_model = st.sidebar.text_input('Auto Model')
     
-
-
-    data = {'months_as_customer' :months_as_customer,
+data = {'months_as_customer' :months_as_customer,
 'age' :age,
 'policy_number' :policy_number,
 'policy_bind_date' :policy_bind_date,
