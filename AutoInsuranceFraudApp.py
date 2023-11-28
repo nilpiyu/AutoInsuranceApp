@@ -106,12 +106,12 @@ def predict(data):
     clf = joblib.load("model_RFC.sav")
     return clf.predict(data)
 
-
+df =pd.read_csv('Automobile_insurance_fraud_v1.csv')
 # Apply model to make predictions
 
 if st.button("Click here to Predict Fraud in Claim Submission"):
-    result = predict(input_df)
-
+   # result = predict(input_df)
+    result = predict(df)
     if (result[0]== 0):
         st.subheader('The Claim :green[Fraud Not Detected] :sunglasses: 	:sparkling_heart:')
     else:
