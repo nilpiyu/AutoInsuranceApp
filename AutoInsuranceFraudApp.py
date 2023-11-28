@@ -95,7 +95,7 @@ data = {'months_as_customer' :months_as_customer,
 'auto_model' :auto_model,
 'auto_year' :auto_year
 }
-features = pd.DataFrame(data, index=[0])
+  features = pd.DataFrame(data, index=[0])
 return features
 input_df = user_input_features()
 
