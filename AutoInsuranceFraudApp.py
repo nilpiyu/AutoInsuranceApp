@@ -228,6 +228,8 @@ df_new_data_X1 = df_new_data[['months_as_customer',
 
 df_new_data_X1 = df_new_data_X1.join(dummies)
 
+
+st.write(df_new_data_X1)
 scaler = StandardScaler(with_mean=False)
 df_new_data_X1_scaled = scaler.fit_transform(df_new_data_X1)
 st.write(df_new_data_X1_scaled)
