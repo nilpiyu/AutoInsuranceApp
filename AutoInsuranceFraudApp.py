@@ -11,7 +11,7 @@ st.write("""-- This app predicts a Claim has Fraud Reported or not --
 
 """)
 st.write(':point_left: (click arrow sign for hide and unhide form) :green[Please Fillup the input field of left side for Prediction.] :sunglasses:')
-st.download_button('Download Sample file link for check', 'https://github.com/ripon2488/Insurace-app-fraud-detection/blob/main/AutoInsuranceFraudDetection.csv')
+# st.download_button('Download Sample file link for check', 'https://github.com/ripon2488/Insurace-app-fraud-detection/blob/main/AutoInsuranceFraudDetection.csv')
 st.sidebar.header('Please Input Features Value')
 
 # Collects user input features into dataframe
@@ -100,7 +100,7 @@ def user_input_features():
     return features
 input_df = user_input_features()
 
-st.write(input_df)
+# st.write(input_df)
 
 def predict(data):
     clf = joblib.load("model_RFC.sav")
