@@ -141,7 +141,9 @@ df_new_data['incident_date'] = pd.to_datetime(df_new_data['incident_date'],dayfi
 df_new_data['Policy_Tenure_Days'] = df_new_data['policy_bind_date'].rsub(pd.Timestamp('now').floor('d')).dt.days
 ##df_new_data['vehicle_age']=int(date.today().strftime('%Y'))-df_new_data['auto_year']
 ## df_new_data['vehicle_age'] = int(int(2023) ## - int(df_new_data['auto_year'])
-df_new_data['vehicle_age']=20 df_new_data['csl_per_person'] = df_new_data.policy_csl.str.split('/', expand=True)[0]
+df_new_data['vehicle_age']= 20 
+
+df_new_data['csl_per_person'] = df_new_data.policy_csl.str.split('/', expand=True)[0]
 df_new_data['csl_per_accident'] = df_new_data.policy_csl.str.split('/', expand=True)[1]
 df_new_data['csl_per_person']  = df_new_data['csl_per_person'].astype('int32')
 df_new_data['csl_per_accident']  = df_new_data['csl_per_accident'].astype('int32')
