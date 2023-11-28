@@ -236,6 +236,6 @@ if st.button("Click here to Predict Fraud in Claim Submission"):
    # result = predict(input_df)
     result = predict(df_new_data_X1_scaled)
     if (result[0]== 0):
-        st.subheader('The Claim :green[Fraud Not Detected] :sunglasses: 	:sparkling_heart:')
+        st.subheader('The Claim :green[Fraud Not Detected]')
     else:
-        st.subheader('The Claim :red[Fraud Detected] :worried:')
+        st.subheader('The Claim :red[Fraud Detected] ')
