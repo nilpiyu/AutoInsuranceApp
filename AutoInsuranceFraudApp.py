@@ -108,6 +108,7 @@ def predict(data):
 
 df =pd.read_csv('Automobile_insurance_fraud_v1.csv')
 # Apply model to make predictions
+st.write(df)
 
 if st.button("Click here to Predict Fraud in Claim Submission"):
    # result = predict(input_df)
