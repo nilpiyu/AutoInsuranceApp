@@ -54,7 +54,7 @@ def user_input_features():
     vehicle_claim =st.sidebar.text_input('Vehicle Claim')
     auto_make = st.sidebar.text_input('Auto Make')
     auto_model = st.sidebar.text_input('Auto Model')
-    auto_year = st.sidebar.text_input('Auto year', value="2014")    
+    auto_year = st.sidebar.text_input('Auto year')    
 
 
     data = {'months_as_customer' :months_as_customer,
