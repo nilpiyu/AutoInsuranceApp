@@ -12,7 +12,7 @@ st.write("""-- This app predicts a Claim has Fraud Reported or not --
 """)
 st.write(':point_left: (click arrow sign for hide and unhide form) :green[Please Fillup the input field of left side for Prediction.] :sunglasses:')
 # st.download_button('Download Sample file link for check', 'https://github.com/ripon2488/Insurace-app-fraud-detection/blob/main/AutoInsuranceFraudDetection.csv')
-st.sidebar.header('Please Input Features Value')
+st.sidebar.header('Please Input Claim Data')
 
 # Collects user input features into dataframe
 
@@ -44,7 +44,7 @@ def user_input_features():
     incident_city = st.sidebar.selectbox('Incident City:',('Arlignton','Columbus','Hillsdale', 'Northbrook','Springfield', 'Arlington'))
     incident_location = st.sidebar.text_input('Incident Location: ')
     number_of_vehicles_involved = st.sidebar.text_input('Number of Vehicles Involved: ')
-    property_damage = st.sidebar.selectbox('Property Damage:',('YES','NO'))
+    property_damage = st.sidebar.selectbox('Property Damage:',('YES','NO','?'))
     bodily_injuries = st.sidebar.text_input('Bodily Injuries')
     witnesses = st.sidebar.text_input('Witness')
     police_report_available = st.sidebar.selectbox('Police Report Available:',('YES','NO'))
@@ -54,7 +54,7 @@ def user_input_features():
     vehicle_claim =st.sidebar.text_input('Vehicle Claim')
     auto_make = st.sidebar.text_input('Auto Make')
     auto_model = st.sidebar.text_input('Auto Model')
-    auto_year = st.sidebar.text_input('Auto year')    
+    auto_year = st.sidebar.text_input('Auto year', value=2014)    
 
 
     data = {'months_as_customer' :months_as_customer,
