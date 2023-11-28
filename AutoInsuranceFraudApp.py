@@ -114,16 +114,16 @@ import pandas as pd
 # For handling date variables
 from datetime import date
 # For plotting graphs
-from matplotlib import pyplot as plt
+
 # For plotting graphs
-import seaborn as sns
+
 # For splitting dataset 
 from sklearn.model_selection import train_test_split
 # Random Forest Classification
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import KFold,cross_val_score 
 from sklearn.metrics import accuracy_score, recall_score, classification_report, cohen_kappa_score,confusion_matrix,precision_score,f1_score
-from xgboost import XGBClassifier
+
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import OneHotEncoder # Use this instead of pd.getDummies
 import pickle
